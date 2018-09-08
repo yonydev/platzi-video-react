@@ -11,9 +11,15 @@ class VideoPlayer extends Component {
     pause: true,
   }
 
-  toggleClick = (event) => {
+  togglePlay = (event) => {
     this.setState({
-      pause: !this.state.pause
+      pause: (!this.state.pause)
+    })
+  }
+
+  componentDidMount() {
+    this.setState({
+      pause: (!this.props.autoplay)
     })
   }
 
@@ -24,9 +30,10 @@ class VideoPlayer extends Component {
           title="Este es el título del video" />
         <PlayPause 
           pause={this.state.pause}
-          handleClick={this.toggleClick} />
+          handleClick={this.togglePlay} />
         <Video
-          autoplay={false}
+          autoplay={this.props.autoplay}
+          pause={this.state.pause}
           src="http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4" />
       </VideoPlayerLayout>
     )
