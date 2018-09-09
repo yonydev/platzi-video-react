@@ -5,7 +5,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = (env) => {
   const plugins = [
-    new ExtractTextPlugin("css/[name].css")
+    new ExtractTextPlugin("css/[name].[hash].css")
   ]
 
   if (env.NODE_ENV === 'production') {
