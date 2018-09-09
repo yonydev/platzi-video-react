@@ -5,6 +5,7 @@ import Related from '../components/related';
 import ModalContainer from '../../widgets/containers/modal';
 import Modal from '../../widgets/components/modal';
 import HandleError from '../../error/containers/handle-error';
+import VideoPlayer from '../../player/containers/video-player';
 
 
 class Home extends Component {
@@ -13,9 +14,10 @@ class Home extends Component {
     modalVisible: false,
   }
 
-  handleModalToggle = (event) => {
+  handleModalToggle = (media) => {
     this.setState({
-      modalVisible: !this.state.modalVisible
+      modalVisible: !this.state.modalVisible,
+      media
     })
   }
 
@@ -24,12 +26,21 @@ class Home extends Component {
       <HandleError>
         <HomeLayout>
           <Related />
-          <Categories categories={this.props.data.categories} handleModalToggle={this.handleModalToggle}/>
+          <Categories
+            categories={this.props.data.categories}
+            handleModalToggle={this.handleModalToggle}
+          />
           {
           this.state.modalVisible &&
           <ModalContainer>
-            <Modal handleClick={this.handleModalToggle}>
-              <h1>Holi Guaquimoli</h1>
+            <Modal 
+              handleClick={this.handleModalToggle}
+            >
+              <VideoPlayer
+                autoplay={true}
+                src={this.state.media.src}
+                title={this.state.media.title}
+              />
             </Modal>
           </ModalContainer>
           }
